@@ -1,0 +1,26 @@
+{
+  "name": "node-mysql-additions",
+  "version": "0.0.1",
+  "description": "Additions for the node mysql module",
+  "main": "additions.js",
+  "dependencies": {
+    "mysql": "~2.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tndev/node-mysql-additions.git"
+  },
+  "keywords": [
+    "mysql"
+  ],
+  "author": "Till Niese",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tndev/node-mysql-additions/issues"
+  },
+  "homepage": "https://github.com/tndev/node-mysql-additions"
+}
