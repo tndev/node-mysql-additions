@@ -13,7 +13,7 @@ to insert those values into the sql query the following format is used:
 var formatNamedObject = function formatNamedObject(sql, values, stringifyObjects, timeZone) {
   values = values || {};
 
-  return sql.replace(/(::?)([a-zA-Z][a-zA-Z0-9_-]*)/g, function(match, type, name) {
+  return sql.replace(/(::?)([a-zA-Z][a-zA-Z0-9_]*)/g, function(match, type, name) {
     /*
     TODO why was this added in the original code of the mysql library?
     
