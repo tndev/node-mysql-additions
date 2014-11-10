@@ -26,6 +26,7 @@ var formatNamedObject = function formatNamedObject(sql, values, stringifyObjects
     if (type === '::') {
       return SqlString.escapeId(values[name]);
     }
+    
     return SqlString.escape(values[name], stringifyObjects, timeZone);
   });
 };
@@ -40,4 +41,4 @@ SqlString.format = function(sql, values, stringifyObjects, timeZone) {
   } else {
     return formatNamedObject.apply(this, arguments);
   }
-}
+};

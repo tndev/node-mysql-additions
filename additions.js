@@ -7,6 +7,7 @@ var Connection = require('mysql/lib/Connection'),
 
 Pool.prototype.getConnectionAsync = Promise.promisify(Pool.prototype.getConnection);
 
+
 Pool.prototype.getConnectionDisposer = function() {
   return this.getConnectionAsync()
     .disposer(function(connection, promise) {
@@ -17,9 +18,8 @@ Pool.prototype.getConnectionDisposer = function() {
 
 
 Connection.prototype.insert = function( table, values, cb ) {
-  var query = 'INSERT INTO ' + SqlString.escapeId(table) + ' SET ';
-
-  var insertList = [],
+  var query = 'INSERT INTO ' + SqlString.escapeId(table) + ' SET ',
+      insertList = [],
       keys = Object.keys(values);
   
   keys.forEach(function(key) {
@@ -32,57 +32,61 @@ Connection.prototype.insert = function( table, values, cb ) {
 };
 
 
-Connection.prototype.update = function( table, values, where, whereValues, cb ) {
-  var query = 'UPDATE ' + SqlString.escapeId(table) + ' SET ';
-  
-  if( typeof where !== 'string' ) {
+Connection.prototype.update = function(table, values, where, whereValues, cb) {
+  var key,
+      list = [],
+      query = 'UPDATE ' + SqlString.escapeId(table) + ' SET ';
+
+  if (typeof where !== 'string') {
     cb = where;
     where = null;
     whereValues = null;
-  } else if( typeof whereValues === 'function' ) {
+  } else if (typeof whereValues === 'function') {
     cb = whereValues;
     whereValues = null;
   }
-  
-  var list = [];
-  for (var key in values) {
+
+  for (key in values) {
     if (Object.hasOwnProperty.call(values, key)) {
       list.push(SqlString.escapeId(key) + '=' + SqlString.escape(values[key]));
     }
   }
 
   query += list.join(', ');
-  
-  if( where ) {
-    query += ' WHERE '+this.format(where, whereValues || []);;
+
+  if (where) {
+    query += ' WHERE ' + this.format(where, whereValues || []);;
   }
-  
+
   return this.query(query, cb);
 };
 
 
-Connection.prototype.delete = function(table, where, whereValues, cb ) {
+
+
+Connection.prototype.delete = function(table, where, whereValues, cb) {
   var query = 'DELETE FROM ' + SqlString.escapeId(table) + ' ';
-  
-  if( typeof where !== 'string' ) {
+
+  if (typeof where !== 'string') {
     cb = where;
     where = null;
     whereValues = null;
-  } else if( typeof whereValues === 'function' ) {
+  } else if (typeof whereValues === 'function') {
     cb = whereValues;
     whereValues = null;
   }
-  
-  if( where ) {
-    query += ' WHERE '+this.format(where, whereValues || []);;
-  }
-  
-  return this.query(query, cb);
-}
 
-Connection.prototype.use = function( database, cb ) {
-  this.query('USE `'+SqlString.escapeId(database)+'`',cb);
-}
+  if (where) {
+    query += ' WHERE ' + this.format(where, whereValues || []);;
+  }
+
+  return this.query(query, cb);
+};
+
+
+Connection.prototype.use = function(database, cb) {
+  this.query('USE `' + SqlString.escapeId(database) + '`', cb);
+};
 
 
 Connection.prototype.queryAsync = Promise.promisify(Connection.prototype.query);
