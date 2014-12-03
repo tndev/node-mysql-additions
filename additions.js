@@ -20,7 +20,6 @@ require('./lib/connection/insert');
 require('./lib/connection/update');
 require('./lib/connection/delete');
 require('./lib/connection/use');
-
 require('./lib/promisify');
 
 
