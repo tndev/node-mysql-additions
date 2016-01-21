@@ -1,11 +1,11 @@
 {
   "name": "mysql-additions",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Additions for the node mysql module",
   "main": "additions.js",
   "dependencies": {
-    "bluebird": "^2.9.34",
-    "mysql": "~2.9.0"
+    "bluebird": "^3.1.1",
+    "mysql": "~2.10.2"
   },
   "devDependencies": {},
   "scripts": {
